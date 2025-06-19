@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dark Mode</title>
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      margin: 50px;
+      font-family: sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .toggle {
+      position: relative;
+      width: 50px;
+      height: 30px;
+      background: white;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+
+    .toggle.dark {
+      background: #444;
+    }
+
+    .toggle-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #9ac5e5;
+      transition: transform 0.3s ease;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 2;
+    }
+
+    .toggle.dark .toggle-circle {
+      transform: translateX(30px);
+    }
+
+    .mode-icon {
+      color: #ffecb8;
+      width: 20px;
+      height: 20px;
+      z-index: 1;
+      transition: opacity 0.3s ease;
+      user-select: none;
+    }
+
+    #icon-sun {
+      opacity: 0;
+    }
+    .toggle.dark #icon-sun {
+      opacity: 1;
+    }
+
+    #icon-moon {
+      opacity: 1;
+    }
+    .toggle.dark #icon-moon {
+      opacity: 0;
+    }
+
+    .container {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+          flex-wrap: wrap;
+    }
+
+    .box {
+      padding: 50px 30px;
+      background: #f0f0f0;
+      border-radius: 12px;
+      transition: background 0.3s, color 0.3s;
+      width: 46%;
+    }
+
+    body.dark-mode {
+      background: #1a1a1a;
+      color: white;
+    }
+
+    body.dark-mode .box {
+      background: #333;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toggle" class="toggle">
+    <div class="toggle-circle"></div>
+    <i id="icon-sun" data-lucide="sun-dim" class="mode-icon"></i>
+    <i id="icon-moon" data-lucide="moon-star" class="mode-icon"></i>
+  </div>
+
+  <div class="container">
+    <div class="box">Content</div>
+    <div class="box">Content</div>
+    <div class="box">Content</div>
+    <div class="box">Content</div>
+  </div>
+
+  <script>
+    const toggle = document.getElementById("toggle");
+    const body = document.body;
+
+    function refreshIcons() {
+      lucide.createIcons();
+    }
+
+    toggle.addEventListener("click", () => {
+      toggle.classList.toggle("dark");
+      body.classList.toggle("dark-mode", toggle.classList.contains("dark"));
+      refreshIcons();
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      refreshIcons();
+    });
+  </script>
+
+</body>
+</html>
